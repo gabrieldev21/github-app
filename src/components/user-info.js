@@ -4,11 +4,9 @@ import React, { PropTypes } from "react";
 
 const UserInfo = ({ userinfo }) => (
   <div className="user-info">
-    <img src= {userinfo.photo} />
+    <img src={userinfo.photo} />
     <h1 className="username">
-      <a href={`https://api.github.com/users/${userinfo.login}`}>
-        {userinfo.username}
-      </a>
+      <a href={`https://github.com/${userinfo.login}`}>{userinfo.username}</a>
     </h1>
 
     <ul className="repos-info">
@@ -26,8 +24,8 @@ UserInfo.propTypes = {
     login: PropTypes.string.isRequired,
     repos: PropTypes.number.isRequired,
     followers: PropTypes.number.isRequired,
-    following: PropTypes.number.isRequired
-  })
-}
+    following: PropTypes.number.isRequired,
+  }),
+};
 
 export default UserInfo;
