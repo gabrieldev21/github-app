@@ -75,7 +75,7 @@ class App extends Component {
         repos={this.state.repos}
         starred={this.state.starred}
         isFetching={this.state.isFetching}
-        handleSearch={this.handleSearch(e)}
+        handleSearch={this.handleSearch}
         getRepos={this.getRepos("repos")}
         getStarred={this.getRepos("starred")}
       />
