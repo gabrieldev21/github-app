@@ -4,6 +4,9 @@ const path = require("path");
 const webpack = require("webpack");
 const validate = require("webpack-validator");
 
+const HtmlPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = validate({
   devtool: "source-map",
 
@@ -16,11 +19,18 @@ module.exports = validate({
 
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "bundle.js",
-    publicPath: "/dist/",
+    filename: "[name]-[hash].js",
+    publicPath: "",
   },
 
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin("[name]-[hash].css"),
+    new HtmlPlugin({
+      title: "Github app",
+      template: path.join(__dirname, "src", "html", "template.html"),
+    }),
+  ],
 
   module: {
     preLoaders: [
@@ -43,7 +53,7 @@ module.exports = validate({
         test: /\.css$/,
         exclude: /node_modules/,
         include: /src/,
-        loaders: ["style", "raw"],
+        loader: ExtractTextPlugin.extract("style", "css"),
       },
     ],
   },
