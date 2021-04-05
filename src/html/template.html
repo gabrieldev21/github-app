@@ -3,12 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <style></style>
+
+    <style>
+      <%= compilation.assets['crp.css'].source() %>
+    </style>
   </head>
   <body>
     <div data-js="app"></div>
 
-    <link rel="stylesheet" href="" />
-    <script src=""></script>
+    <% htmlWebpackPlugin.files.js.forEach((jsFile) => { %>
+    <script assync src="<%= jsFile %>"></script>
+    <% }) %> <% htmlWebpackPlugin.files.css.forEach((cssFile) => { %> <% if
+    (cssFile !== 'crp.css') { %>
+    <link rel="stylesheet" href="<%= cssFile %>" />
+    <% } %> <% }) %>
   </body>
 </html>
